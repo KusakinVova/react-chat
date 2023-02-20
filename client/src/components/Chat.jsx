@@ -14,8 +14,6 @@ const socket = io.connect('http://localhost:5555/')
 const Chat = () => {
   const navigate = useNavigate()
   const { search } = useLocation()
-  // console.log('search')
-  // console.log(search)
   const [params, setParams] = useState({ name: '', room: '' })
   const [messages, setMessages] = useState([])
   const [myMessage, setMyMessage] = useState('')
@@ -24,20 +22,13 @@ const Chat = () => {
   useEffect(() => {
     const searchParams = Object.fromEntries(new URLSearchParams(search))
     setParams(searchParams)
-    // console.log(searchParams)
     socket.emit('join', searchParams)
-    /* 
-      socket.on('message', ({ data }) => {
-        console.log(data)
-      })
-     */
   }, [search])
 
   useEffect(() => {
     socket.on('message', ({ data }) => {
       setMessages((_messages) => [..._messages, data])
       setUsersInRoom(data.countUsersRoom)
-      // console.log(data)
     })
   }, [])
 
@@ -45,8 +36,6 @@ const Chat = () => {
     const chat__body = document.querySelector('.chat__body')
     chat__body.scrollTo(0, chat__body.scrollHeight)
   }, [messages])
-
-  // console.log(messages)
 
   const [stateDialog, setStateDialog] = useState(false)
 
@@ -61,15 +50,10 @@ const Chat = () => {
   }
   const handleSendMessage = () => {
     if (myMessage === '') return false
-    socket.emit('sendMessage', { message: myMessage, params }) // отправляем сообщение на сервер
+    // send message on server
+    socket.emit('sendMessage', { message: myMessage, params })
     setMyMessage('')
   }
-  // const handleKeyDown = (e) => {
-  //   if (e.key === 'Enter') {
-  //     handleSendMessage()
-  //     setMyMessage('')
-  //   }
-  // }
 
   return (
     <div className="chat">
@@ -103,7 +87,6 @@ const Chat = () => {
           onChange={(e) => setMyMessage(e.target.value)}
           multiline
           rows={2}
-          // onKeyDown={handleKeyDown}
         />
         <EmojiEmotionsIcon
           sx={{
