@@ -9,11 +9,13 @@ import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions'
 import EmojiPicker from 'emoji-picker-react'
 import Message from './Message'
 
-const socket = io.connect('http://localhost:5000/')
+const socket = io.connect('http://localhost:5555/')
 
 const Chat = () => {
   const navigate = useNavigate()
   const { search } = useLocation()
+  // console.log('search')
+  // console.log(search)
   const [params, setParams] = useState({ name: '', room: '' })
   const [messages, setMessages] = useState([])
   const [myMessage, setMyMessage] = useState('')
@@ -22,6 +24,7 @@ const Chat = () => {
   useEffect(() => {
     const searchParams = Object.fromEntries(new URLSearchParams(search))
     setParams(searchParams)
+    // console.log(searchParams)
     socket.emit('join', searchParams)
     /* 
       socket.on('message', ({ data }) => {
@@ -34,7 +37,7 @@ const Chat = () => {
     socket.on('message', ({ data }) => {
       setMessages((_messages) => [..._messages, data])
       setUsersInRoom(data.countUsersRoom)
-      console.log(data)
+      // console.log(data)
     })
   }, [])
 
