@@ -18,7 +18,7 @@ npm start
 
 ## Look
 
-http://localhost:5000/ - server
+http://localhost:5555/ - server
 
 http://localhost:3000/ - front
 
