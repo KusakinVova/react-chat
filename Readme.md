@@ -31,3 +31,5 @@ npm i emoji-picker-react react-router-dom socket.io-client
 ### packages server
 
 npm i socket.io cors express nodemon
+
+video - https://www.youtube.com/watch?v=8Tm0HBa1ijk
